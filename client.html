@@ -10,14 +10,31 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <script src="jquery.js"></script>
     <script type="text/javascript" src="animate.js" ></script>
+    <script type="text/javascript" src="emoji.js" ></script>
     <script type="text/javascript" src="smooth-scroll.min.js" ></script>
     <script type="text/javascript">smoothScroll.init();</script>
     <script src="jquery.teletype.js"></script>
     <script>
+        var twemo = twemoji.parse('\u2764\uFE0F');
         $(function chapter1(){
             $('#ch1').teletype({
-                text: [ 'Hey there! I\'ll be your personal assistant today!',
-                '\nTo start, what\'s your major?^1000' ],
+                text: [ 'Hey there! I\'ll be your personal assistant today!' ],
+                typeDelay: 0,
+                delay: 800,
+                loop: 1,
+                preserve: true,
+                callbackFinished: function( teletype ) {
+                    teletype.setCursor('');
+                    chapter1_1();
+                }
+            });
+        });
+        $(document).ready(function(){
+            
+        });
+        $(function chapter1_1(){
+            $('#ch1').teletype({
+                text: [ '\nTo start, what\'s your major?^1000' ],
                 typeDelay: 0,
                 delay: 800,
                 loop: 1,
@@ -85,7 +102,7 @@
             easy to follow plan to help you spend more time graduating, and less time
             navigating obscure prereq charts.
                 <br><br>
-            Enjoy!
+            Enjoy! &#x1f601;
                 <br><br>
             </span>
         </div>
@@ -99,7 +116,7 @@
                     <div data-scroll href="#bottom" class="questionChoice" id="hpQ1Choice2">Psych</div>
                     <div href="#" class="questionChoice disabledChoice">More soon!</div>
                 </div>
-                <input type="text" id="major" name="major">
+                <input type="hidden" id="major" name="major">
                 <br><br><div id="ch2" class="chatBot"></div>
                 <!--<span id="ch3">Awesome sauce! One sec while I check what prereqs you'll need.</span>
                 <span id="ch4">Alright, back. Jumping right in, have you... </span>-->
