@@ -1,10 +1,3 @@
-/*
-white fefefe
-black 1c1e21
-mark1 74c16c
-mark2 3eb52f
-*/
-
 html, body {
     font-family: 'open sans', sans-serif;
     color: #1c1e21;
@@ -125,8 +118,11 @@ input:focus {
 .selectedAns {
     background-color:#d1d1d2;
 }
+.unselected {
+    color: #d1d1d2
+}
 .quarter {
-    padding:1em;
+    padding:0 1em;
     margin-bottom:1em;
     border-left: 3px solid #fb7871;
 }
@@ -138,4 +134,17 @@ input:focus {
 }
 .hidden {
     display:none;
+}
+.steazy {
+    position:fixed;
+    bottom:0;
+    right:-99em;
+    max-height: 333px;
+}
+.steazy2 {
+    position:fixed;
+    bottom:0;
+    left:-99em;
+    max-height: 333px;
+    transform: scaleX(-1);
 }

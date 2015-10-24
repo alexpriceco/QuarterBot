@@ -14,22 +14,63 @@
     <script type="text/javascript" src="smooth-scroll.min.js" ></script>
     <script type="text/javascript">smoothScroll.init();</script>
     <script src="jquery.teletype.js"></script>
+    <script src="cheet.min.js"></script>
     <script>
+        // Konami code easter egg, displays the 6 god twice
+        $(document).ready(function(){
+            cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
+                $(".steazy").toggle(function() {
+                    $('.steazy').show(700);
+                    $( ".steazy" ).animate({
+                        right: -80
+                    }, {
+                        duration: 1000,
+                        step: function( now, fx ){
+                            $( ".steazy" ).css( "right", now );
+                        }
+                    });
+                });
+                $(".steazy2").toggle(function() {
+                    $('.steazy2').show(700);
+                    $( ".steazy2" ).animate({
+                        left: -80
+                    }, {
+                        duration: 1000,
+                        step: function( now, fx ){
+                            $( ".steazy2" ).css( "left", now );
+                        }
+                    });
+                });
+            });
+        });
+
+        // Bot code, starts typing initial text
         $(function chapter1(){
             $('#ch1').teletype({
-                text: [ 'Hey there! I\'ll be your personal assistant today! &#128522;',
-                '\nTo start, what\'s your major?^1000' ],
+                text: [ 'Hey there! I\'ll be your personal assistant today!^200 ' ],
                 typeDelay: 0,
                 delay: 800,
                 loop: 1,
                 preserve: true,
                 callbackFinished: function( teletype ) {
-                    $( '#hp1' ).slideToggle('normal');
                     teletype.setCursor('');
+                    $('#ch1').append('&#128522;');  // Appends smily emoji!
+                    $('#ch1_1').teletype({          // Reqd. to allow for emoji, teletype + twemoji don't play well
+                        text: [ 'To start, what\'s your major?^1000' ],
+                        typeDelay: 0,
+                        delay: 800,
+                        loop: 1,
+                        preserve: true,
+                        callbackFinished: function( teletype ) {
+                            teletype.setCursor('');
+                            $( '#hp1' ).slideToggle('normal');
+                        }
+                    });
                 }
             });
         });
 
+        // Gets major, submits form
         $(document).ready(function(){
             $('#hpQ1Choice1').click(function() {
                 var choice1 = document.querySelector("#hpQ1Choice1");
@@ -47,6 +88,7 @@
             });
         });
 
+        // Receives prerequisites, offers questions
         function chapter2(major) {
             $('#ch2').teletype({
                 text: [ 'Great choice! Gimme just a second...^1000 ',
@@ -95,6 +137,7 @@
             <!-- THROW THE RESULTS RIGHT HERE -->
             <form method="post" name="mainForm" action="main.php" id="mainForm">
                 <div id="ch1" class="chatBot"></div>
+                <div id="ch1_1" class="chatBot"></div>
                 <div id="hp1" class="humanPerson" style="display:none">
                     <div data-scroll href="#bottom" class="questionChoice" id="hpQ1Choice1">CS</div>
                     <div data-scroll href="#bottom" class="questionChoice" id="hpQ1Choice2">Psych</div>
@@ -174,6 +217,8 @@
             </div>
         </div>
     </div>
+    <img src="drake.png" id="steazy" class="steazy" />
+    <img src="drake.png" id="steazy2" class="steazy2" />
 </body>
 
 </html>

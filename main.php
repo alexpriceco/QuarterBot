@@ -1,15 +1,16 @@
 <?php
 class Course{
- $CourseName;
- $units;
- $prereqs = new array();
+    $CourseName;
+    $units;
+    $prereqs = new array();
 
- function __construct($CourseName, $units, $prereqs){
-  $this->$CourseName=$CourseName;
-  $this->$units=$units;
-  $this->$prereqs=$prereqs;
- }
+    function __construct($CourseName, $units, $prereqs){
+        $this->$CourseName=$CourseName;
+        $this->$units=$units;
+        $this->$prereqs=$prereqs;
+    }
 }
+
 function getPath($major, $reqsFulfilled){
 	$cleanArray=RmvSP(getCourses($major), $reqsFulfilled);
 	$path=new array();
@@ -21,7 +22,7 @@ function getPath($major, $reqsFulfilled){
 	$q=0;
 	$c=0;
 	while(count($cleanArray)>0){
-		foreach($cleanArray as $x){//$x=each object in $cleanArray
+		foreach($cleanArray as $x){ // $x=each object in $cleanArray
 			if(count($x->$prereqs)==0){
 				$path[q][c]=$x;
 				if ($c==0){       //c and q define position in the $path 2darray
