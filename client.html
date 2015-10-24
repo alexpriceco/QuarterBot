@@ -15,26 +15,10 @@
     <script type="text/javascript">smoothScroll.init();</script>
     <script src="jquery.teletype.js"></script>
     <script>
-        var twemo = twemoji.parse('\u2764\uFE0F');
         $(function chapter1(){
             $('#ch1').teletype({
-                text: [ 'Hey there! I\'ll be your personal assistant today!' ],
-                typeDelay: 0,
-                delay: 800,
-                loop: 1,
-                preserve: true,
-                callbackFinished: function( teletype ) {
-                    teletype.setCursor('');
-                    chapter1_1();
-                }
-            });
-        });
-        $(document).ready(function(){
-            
-        });
-        $(function chapter1_1(){
-            $('#ch1').teletype({
-                text: [ '\nTo start, what\'s your major?^1000' ],
+                text: [ 'Hey there! I\'ll be your personal assistant today! &#128522;',
+                '\nTo start, what\'s your major?^1000' ],
                 typeDelay: 0,
                 delay: 800,
                 loop: 1,
