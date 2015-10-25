@@ -54,18 +54,21 @@
                 preserve: true,
                 callbackFinished: function( teletype ) {
                     teletype.setCursor('');
-                    $('#ch1').append('&#128522;');  // Appends smily emoji!
-                    $('#ch1_1').teletype({          // Reqd. to allow for emoji, teletype + twemoji don't play well
-                        text: [ 'To start, what\'s your major?^1000' ],
-                        typeDelay: 0,
-                        delay: 800,
-                        loop: 1,
-                        preserve: true,
-                        callbackFinished: function( teletype ) {
-                            teletype.setCursor('');
-                            $( '#hp1' ).slideToggle('normal');
-                        }
-                    });
+                    $('#ch1').append('&#128522;'); // Appends smily emoji!
+                    setTimeout(function(){ // Adds some buffer time between emoji and next line
+                        // Reqd. to allow for emoji, teletype + twemoji don't play well
+                        $('#ch1_1').teletype({
+                            text: [ 'To start, what\'s your major?^1000' ],
+                            typeDelay: 0,
+                            delay: 800,
+                            loop: 1,
+                            preserve: true,
+                            callbackFinished: function( teletype ) {
+                                teletype.setCursor('');
+                                $( '#hp1' ).slideToggle('normal');
+                            }
+                        });
+                    }, 1000);
                 }
             });
         });
@@ -81,8 +84,14 @@
                 choice3.classList.add("unselected");
                 chapter2(1);
                 document.getElementById("major").value = "cs";
-                document.getElementById("mainForm").submit();
-                    choiceMade = true;
+                $.ajax({
+                    type: "GET",
+                    url: "php/primary.php",
+                    data: "query="+document.getElementById("major").value,
+                    success: function(msg){
+                        alert(msg);
+                    }
+                })
             });
             $('#hpQ1Choice2').click(function() {
                 choice2.classList.add("selectedAns");
@@ -90,8 +99,14 @@
                 choice3.classList.add("unselected");
                 chapter2(2);
                 document.getElementById("major").value = "psych";
-                document.getElementById("mainForm").submit();
-                    choiceMade = true;
+                $.ajax({
+                    type: "GET",
+                    url: "php/primary.php",
+                    data: "query="+document.getElementById("major").value,
+                    success: function(msg){
+                        alert(msg);
+                    }
+                })
             });
         });
 
@@ -139,7 +154,7 @@
 
         <div class="whitePaper">
             <!-- THROW THE RESULTS RIGHT HERE -->
-            <form method="post" name="mainForm" action="main.php" id="mainForm">
+            <form method="post" name="mainForm" action="php/primary.php" id="mainForm">
                 <div id="ch1" class="chatBot"></div>
                 <div id="ch1_1" class="chatBot"></div>
                 <div id="hp1" class="humanPerson" style="display:none">
@@ -149,9 +164,9 @@
                 </div>
                 <input type="hidden" id="major" name="major">
                 <br><br><div id="ch2" class="chatBot"></div>
-                <!--<span id="ch3">Awesome sauce! One sec while I check what prereqs you'll need.</span>
-                <span id="ch4">Alright, back. Jumping right in, have you... </span>-->
             </form>
+
+
 
                 <br><br>
             <div class="report hidden" id="report">

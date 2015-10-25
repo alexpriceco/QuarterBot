@@ -33,6 +33,7 @@ class Test{
 }
 
 // Switch case used for scalability in the future
+<<<<<<< HEAD
 switch ($major){
   case ("cs"){
     return $cs;
@@ -44,5 +45,11 @@ switch ($major){
     return "sorry";
   }
 }
+=======
+switch ($major):
+  case ("cs") : return $cs;
+  case ("psych") : return $psych;
+endswitch;
+>>>>>>> origin/master
 
   ?>
