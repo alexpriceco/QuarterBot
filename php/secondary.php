@@ -1,26 +1,49 @@
-//receives $apScores and returns class array with course type objects
-//y1q1[Course("$name", units), ..., ...,]
-
 <?php
-$regsFulfilled = $_POST['apscores']; //scores will be ints
+// Receives apScores from browser(Price) and returns a classes array with type course objects(properties --> string $name, and int units) inside
 
-//depending on these scores, the function should decide what classes that user should take
+// should return something like --> Y1Q1[Course("$name", units), ..., ...,]
 
+// Correlate the test scores with the right pre-req, so we know which pre-req to remove out of the pre-req array in a specific course
+
+//
+
+
+
+
+
+
+
+$scores = $_POST['apscores']; // Basic text
+// Assume the scores are in "APCS 3" format (text)
+
+class Course{
+    $courseName;
+    $courseUnits;
+    $coursePreReqs; // Of type array
+
+    function __construct($courseName, $courseUnits, $coursePreReqs){
+        $this->courseName=$courseName;
+        $this->courseUnits=$courseUnits;
+        $this->coursePreReqs=$coursePreReqs;
+    }
+}
+
+// Depending on these scores, the function should decide what classes the user should take
 function getPath($major, $reqsFulfilled){
 	$cleanArray=RmvSP(getCourses($major), $reqsFulfilled);
 	$path=new array();
 	for ($c=0; $c<count($cleanArray);$c+=2)
 	{
-		array_push($path, array(NULL , NULL));  //need to fix
+		array_push($path, array(NULL , NULL));  // Need to fix
 	}
 
 	$q=0;
 	$c=0;
 	while(count($cleanArray)>0){
-		foreach($cleanArray as $x){ // $x=each object in $cleanArray
+		foreach($cleanArray as $x){ // $x = each object in $cleanArray
 			if(count($x->$prereqs)==0){
 				$path[q][c]=$x;
-				if ($c==0){       //c and q define position in the $path 2darray
+				if ($c==0){       // C and q define position in the $path 2darray
 					$c++;
 				}
 				else{
@@ -42,10 +65,6 @@ function getPath($major, $reqsFulfilled){
 	return $path;
   }
 }
-
-
-
-
 
 
 ?>
