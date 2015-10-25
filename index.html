@@ -75,27 +75,24 @@
             var choice1 = document.querySelector("#hpQ1Choice1");
             var choice2 = document.querySelector("#hpQ1Choice2");
             var choice3 = document.querySelector("#hpQ1Choice3");
-            var choiceMade = false;
-            while(choiceMade==false) {
-                $('#hpQ1Choice1').click(function() {
-                    choice1.classList.add("selectedAns");
-                    choice2.classList.add("unselected");
-                    choice3.classList.add("unselected");
-                    chapter2(1);
-                    document.getElementById("major").value = "cs";
-                    document.getElementById("mainForm").submit();
-                        choiceMade = true;
-                });
-                $('#hpQ1Choice2').click(function() {
-                    choice2.classList.add("selectedAns");
-                    choice1.classList.add("unselected");
-                    choice3.classList.add("unselected");
-                    chapter2(2);
-                    document.getElementById("major").value = "psych";
-                    document.getElementById("mainForm").submit();
-                        choiceMade = true;
-                });
-            }
+            $('#hpQ1Choice1').click(function() {
+                choice1.classList.add("selectedAns");
+                choice2.classList.add("unselected");
+                choice3.classList.add("unselected");
+                chapter2(1);
+                document.getElementById("major").value = "cs";
+                document.getElementById("mainForm").submit();
+                    choiceMade = true;
+            });
+            $('#hpQ1Choice2').click(function() {
+                choice2.classList.add("selectedAns");
+                choice1.classList.add("unselected");
+                choice3.classList.add("unselected");
+                chapter2(2);
+                document.getElementById("major").value = "psych";
+                document.getElementById("mainForm").submit();
+                    choiceMade = true;
+            });
         });
 
         // Receives prerequisites, offers questions
