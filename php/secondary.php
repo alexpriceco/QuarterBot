@@ -1,17 +1,15 @@
 <?php
 // Receives apScores from browser(Price) and returns a classes array with type course objects(properties --> string $name, and int units) inside
 
-// should return something like --> Y1Q1[Course("$name", units), ..., ...,]
+// Should return something like --> Y1Q1[Course("$name", units), ..., ...,]
 
 // Correlate the test scores with the right pre-req, so we know which pre-req to remove out of the pre-req array in a specific course
 
-//
+// With the remaining objects in the course pre-req array, those are the classes the student needs to take
 
+// Push the appropriate object properties to the Y1Q1[];
 
-
-
-
-
+// Return Y1Q1 to Browser(Price)
 
 $scores = $_POST['apscores']; // Basic text
 // Assume the scores are in "APCS 3" format (text)
