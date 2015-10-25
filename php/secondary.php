@@ -34,6 +34,9 @@ class Course {
     $this->courseCore=$courseCore;
   }
 }
+class APcourse extends Course {
+  var $score;
+}
 //The part where shit happens
 //================================================
 $courses = getCourses($major);
@@ -46,12 +49,21 @@ $courses2 = array();
 //makes a 2D array
 for ($x=0; $x<count($courses); $x++){
   array_push($courses2, null);
-  array_push($courses2[x], $courses[x]);
+  array_push($courses2[$x], $courses[$x]);
 }
 
 $courses2 = combineSimilar($courses2);
 
-$courses2 = apCred($apScores, $courses2);
+$apCourses=getAPcredits($major);
+for ($q=0; $q<count($apScores); $q+=2){
+  foreach ($apCourses as $r){
+    if ($apScores[$q]==$r->courseDesc){
+      $r->score=$apScores[$q+1];
+    }
+  }
+}
+
+$courses2 = apCred($apCourses, $courses2);
 
 $path = quarterify($courses2); //courses2 has now been sorted and duplicates combined
 //================================================
@@ -78,7 +90,7 @@ function getCMPSBSCourses(){
     $CMPS12A = new Course("CMPS12A:Accelerated Intro to Programming", 7, 0, "CS"),
     $CMPS12B = new Course("CMPS12B:Data Structures", 5, 1, "CS"),
     $CMPS13H = new Course("CMPS13H:Computer System’s and C Programming", 5, 0, "CS"),
-    $MATH19A = new Course("MATH19A:Calculus for Science, Engineering, and Math", 5, 1, "MATH"),
+    $MATH19A = new Course("MATH19A:Calculus for Science, Engineering, and Math", 5, 0, "MATH"),
     $MATH19B = new Course("MATH19B:Calculus for Science, Engineering, and Math", 5, 1, "MATH"),
     $MATH20A = new Course("MATH20A:Honors Calculus", 5, 0, "MATH"),
     $MATH20B = new Course("MATH20B:Honors Calculus", 5, 1, "MATH"),
@@ -127,15 +139,31 @@ function getCMPSBSCourses(){
   return $courses;
 }
 
+function getAPcredits($major){
+  switch ($major){
+      case "cs" : return getAPcmps();
+      default : $f=array("ya fucked up mate");
+                return $f;
+  }
+}
+
+function getAPcmps(){
+  $apCourses=array(
+    $APcompSci=new Course("APCS", 5, 0, "CS"),
+    $APcalcAB=new Course("APCALC", 5, 0, "MATH")
+  );
+  return $apCourses;
+}
+
 function mySort($array){
   $sorted=false;
   while(!$sorted){
     $sorted=true;
     for ($x=1; $x<count($array); $x++){
-      if (($array[x]->courseBarToEntry)>($array[x-1]->courseBarToEntry)){
-        $temp = $array[x];
-        $array[x] = $array[x-1];
-        $array[x-1] = $temp;
+      if (($array[$x]->courseBarToEntry)>($array[$x-1]->courseBarToEntry)){
+        $temp = $array[$x];
+        $array[$x] = $array[$x-1];
+        $array[$x-1] = $temp;
         $sorted=false;
       }
     }
@@ -148,12 +176,12 @@ function combineSimilar($array){
   while(!$fixed){
     $fixed=true;
     for ($x=1; $x<count($array); $x++){
-      if(($array[x][0]->courseBarToEntry)==($array[x-1][0]->courseBarToEntry)&&($array[x][0]->courseCore)==($array[x-1][0]->courseCore)){
+      if(($array[$x][0]->courseBarToEntry)==($array[$x-1][0]->courseBarToEntry)&&($array[$x][0]->courseCore)==($array[$x-1][0]->courseCore)){
 
-        foreach ($array[x] as $c){
-          array_push($array[x-1], $c);
+        foreach ($array[$x] as $c){
+          array_push($array[$x-1], $c);
         }
-        unset($array[x]);
+        unset($array[$x]);
         $x--;
         $fixed=false;
       }
@@ -162,9 +190,14 @@ function combineSimilar($array){
   return $array;  //at this point, we have a sequentially sorted array
 } //EVERYTHING SHOULD BE IN ORDER BY THIS CURLY BRACE
 
-function apCred($s, $array){
+function apCred($APcourses, $array){
   for ($n=0; $n<$array; $n++){
-
+    foreach ($APcourses as $g){
+      if(($g->courseCore==$array[$n][0]->courseCore)&&($g->courseBarToEntry==$array[$n][0]->courseBarToEntry)){
+        unset($array[$n]);
+        $n--;
+      }
+    }
   }
 }
 //$array[quarter][slot][class]
@@ -172,7 +205,7 @@ function quarterify($array){ //courses2 is sorted and similarified
   $r = array();
   $count=0;
   $c=0;
-  for ($x=0; $x<12; x++){
+  for ($x=0; $x<12; $x++){
     while ($count<13){
       if(($count+$array[$x][0]->courseCredits)<=12){
         array_push($r[$x][$c], $array[$x]);
