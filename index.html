@@ -85,11 +85,12 @@
                 chapter2(1);
                 document.getElementById("major").value = "cs";
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "php/primary.php",
-                    data: "query="+document.getElementById("major").value,
-                    success: function(msg){
-                        alert(msg);
+                    data: "major="+document.getElementById("major").value,
+                    success: function(data) {
+                        var questions2 = data.split(" ");
+                        alert(questions2[0]+" "+questions2[1]+" "+questions2[2])
                     }
                 })
             });
@@ -103,8 +104,8 @@
                     type: "GET",
                     url: "php/primary.php",
                     data: "query="+document.getElementById("major").value,
-                    success: function(msg){
-                        alert(msg);
+                    success: function(data) {
+                        alert(data);
                     }
                 })
             });
@@ -169,7 +170,7 @@
 
 
                 <br><br>
-            <div class="report hidden" id="report">
+            <div class="report" id="report">
                 <div class="quarter">
                     <span class="quarterLabel">FALL</span>
                     <span>$classname</span>
