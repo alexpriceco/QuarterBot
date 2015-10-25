@@ -74,23 +74,28 @@
         $(document).ready(function(){
             var choice1 = document.querySelector("#hpQ1Choice1");
             var choice2 = document.querySelector("#hpQ1Choice2");
-            var choice3 = document.querySelector("#hpQ1Choice3")
-            $('#hpQ1Choice1').click(function() {
-                choice1.classList.add("selectedAns");
-                choice2.classList.add("unselected");
-                choice3.classList.add("unselected");
-                chapter2(1);
-                document.getElementById("major").value = "cs";
-                document.getElementById("mainForm").submit();
-            });
-            $('#hpQ1Choice2').click(function() {
-                choice2.classList.add("selectedAns");
-                choice1.classList.add("unselected");
-                choice3.classList.add("unselected");
-                chapter2(2);
-                document.getElementById("major").value = "psych";
-                document.getElementById("mainForm").submit();
-            });
+            var choice3 = document.querySelector("#hpQ1Choice3");
+            var choiceMade = false;
+            while(choiceMade==false) {
+                $('#hpQ1Choice1').click(function() {
+                    choice1.classList.add("selectedAns");
+                    choice2.classList.add("unselected");
+                    choice3.classList.add("unselected");
+                    chapter2(1);
+                    document.getElementById("major").value = "cs";
+                    document.getElementById("mainForm").submit();
+                        choiceMade = true;
+                });
+                $('#hpQ1Choice2').click(function() {
+                    choice2.classList.add("selectedAns");
+                    choice1.classList.add("unselected");
+                    choice3.classList.add("unselected");
+                    chapter2(2);
+                    document.getElementById("major").value = "psych";
+                    document.getElementById("mainForm").submit();
+                        choiceMade = true;
+                });
+            }
         });
 
         // Receives prerequisites, offers questions
@@ -141,8 +146,8 @@
                 <div id="ch1" class="chatBot"></div>
                 <div id="ch1_1" class="chatBot"></div>
                 <div id="hp1" class="humanPerson" style="display:none">
-                    <div data-scroll href="#bottom" class="questionChoice" id="hpQ1Choice1">CS</div>
-                    <div data-scroll href="#bottom" class="questionChoice" id="hpQ1Choice2">Psych</div>
+                    <div data-scroll href="#report" class="questionChoice" id="hpQ1Choice1">CS</div>
+                    <div data-scroll href="#report" class="questionChoice" id="hpQ1Choice2">Psych</div>
                     <div href="#" class="questionChoice disabledChoice" id="hpQ1Choice3">More soon!</div>
                 </div>
                 <input type="hidden" id="major" name="major">
