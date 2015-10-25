@@ -19,7 +19,7 @@
         // Creates conversational structure: a question, followed by an answer
         // Types it out, based on a 2d array call "dialogue"
         var discCount = 1; var answerText = "";
-        var dialogue = [[""], ["Jumping right in, what's your major?", "CS", "Psychology"]];
+        var dialogue = [[""], ["What's your major?", "CS", "Psychology"]];
         var question1 = dialogue[[discCount][0]];
         var question = question1[0];
         var answers = dialogue[discCount];
@@ -55,6 +55,18 @@
                     $( aID ).toggle('normal');
                 }
             });
+            $('.questionChoice').click(function(event) {
+                document.getElementById( event.target.id ).classList.add("selectedAns");
+                $("div").siblings( event.target.id ).addClass("unselected");
+                $.ajax({
+                    type: "POST",
+                    url: "php/primary.php",
+                    data: name+"="+name,
+                    success: function(data) {
+                        alert(data);
+                    }
+                })
+            });
             discCount++;
         }
 
@@ -87,7 +99,7 @@
         // Bot code, starts typing initial text
         $(function chapter1(){
             $('#ch0q').teletype({
-                text: [ 'Hey there! ' ],
+                text: [ 'Hey there, glad to have you! ' ],
                 typeDelay: 0,
                 delay: 800,
                 loop: 1,
@@ -98,7 +110,7 @@
                     setTimeout(function(){ // Adds some buffer time between emoji and next line
                         // Reqd. to allow for emoji, teletype + twemoji don't play well
                         $('#ch0_1q').teletype({
-                            text: [ 'I\'ll be your personal assistant today!^200' ],
+                            text: [ 'Let\'s jump right in!^200' ],
                             typeDelay: 0,
                             delay: 800,
                             loop: 1,
