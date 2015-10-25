@@ -33,8 +33,16 @@ class Test{
 }
 
 // Switch case used for scalability in the future
-switch ($major):
-  case ("cs") : return $cs;
-  case ("psych") : return $psych;
+switch ($major){
+  case ("cs"){
+    return $cs;
+  }
+  case ("psych"){
+    return $psych;
+  }
+  default{
+    return "sorry";
+  }
+}
 
   ?>
