@@ -11,6 +11,8 @@
 
 // Return Y1Q1 to Browser(Price)
 
+// courseNumber = [credits, barToEnt, "core", "course description."]
+
 $scores = $_POST['apscores']; // Basic text
 // Assume the scores are in "APCS 3" format (text)
 
