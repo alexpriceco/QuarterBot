@@ -36,5 +36,6 @@ class Test{
 switch ($major):
   case ("cs") : return $cs;
   case ("psych") : return $psych;
+endswitch;
 
   ?>
