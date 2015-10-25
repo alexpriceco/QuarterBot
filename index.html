@@ -19,10 +19,15 @@
     <script>
         // Creates conversational structure: a question, followed by an answer
         // Types it out, based on a 2d array call "dialogue"
-        var discCount = 1; var answerText = "";
-        var dialogue = [[""], ["What's your major?", "CS", "Psychology", "TIM", "CE", "BioEngineering", "Literature"]];
+        var discCount = 1; var answerText = ""; console.log("at start" + discCount);
+        var dialogue = [[""],
+                        ["What's your major?", "CS", "Psychology", "TIM", "CE", "BioEngineering", "Literature"],
+                        ["Have you taken the AP CS test?", "Didn't take it.", "1", "2", "3", "4", "5"],
+                        ["Have you taken the AP Calc AB test?", "Didn't take it.", "1", "2", "3", "4", "5"],
+                        ["Have you taken the AP Calc BC test?", "Didn't take it.", "1", "2", "3", "4", "5"],
+                        ["Do you prefer chemistry, or physics?", "Chemistry.", "Physics!"]];
         var question1 = dialogue[[discCount][0]];
-        var question = question1[0];
+        var question = question1[0]; console.log("CHECK FOR RUN TWICE");
         var answers = dialogue[discCount];
         var qID = "#ch"+discCount+"q";
         var sqID = "ch"+discCount+"q";
@@ -32,6 +37,8 @@
 
 
         function createDiscourse() {
+             console.log("start of createDiscourse " + discCount);
+             console.log("question: " + question);
             // Answer text
             for(i = 0; i<(answers.length-1); i++) {
                 answerText = answerText+'<div class="questionChoice" id="'+aID+'choice'+i+'">'+answers[i+1]+'</div>&nbsp;';
@@ -40,11 +47,11 @@
             // Appends new discourse session
             $('#discourse').append('<div id="'+sqID+'" class="chatBot"></div>')
             $('#discourse').append('<div id="'+saID+'" class="humanPerson">'+answerText+'</div>');
-            discCount++;
             beginDiscourse();
         }
 
         function beginDiscourse() {
+             console.log("start of beginDiscourse " + discCount);
             // Creates new bot-typing section
             $( qID ).teletype({
                 text: [ question ],
@@ -57,10 +64,18 @@
                     $( aID ).toggle('normal');
                 }
             });
+            console.log("question: " + question);
             $('.questionChoice').click(function(event) {
                 document.getElementById( event.target.id ).classList.add("selectedAns");
-                primary();
-                createDiscourse();
+                 console.log("after primary " + discCount);
+                 discCount++;
+                 question1 = dialogue[[discCount][0]];
+                 question = question1[0];
+                 answers = dialogue[discCount];
+                 console.log("dialogue [ discCount ][ 0 ] (question): "+question);
+                 console.log("dialogue [ discCount ] (answers): "+answers);
+                 createDiscourse();
+                 console.log("after createDiscourse call " + discCount);
                 /*$.ajax({
                     type: "POST",
                     url: "php/primary.php",

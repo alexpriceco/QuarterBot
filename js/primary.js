@@ -5,7 +5,7 @@ function primary() {
               ["Do you prefer chemistry, or physics?", "Chemistry.", "Physics!"]]
     for(i=cs.length; i>0; i--) {
         dialogue.push([discCount][cs[i]]);
+        console.log("dialogue: "+dialogue[[2][0]]);
         discCount++;
-        console.log("discCount = "+discCount);
-    }
+    } discCount = 2;
 }
