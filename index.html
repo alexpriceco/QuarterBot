@@ -20,26 +20,29 @@
         // Types it out, based on a 2d array call "dialogue"
         var discCount = 1; var answerText = "";
         var dialogue = [[""], ["Jumping right in, what's your major?", "CS", "Psychology"]];
+        var question1 = dialogue[[discCount][0]];
+        var question = question1[0];
+        var answers = dialogue[discCount];
+        var qID = "#ch"+discCount+"q";
+        var sqID = "ch"+discCount+"q";
+        var aID = "#ch"+discCount+"a";
+        var saID = "ch"+discCount+"a";
+        var paID = "#ch"+(discCount-1)+"a";
 
-        function createDiscourse(questions_answers) {
-            question1 = dialogue[[discCount][0]];
-            question = question1[0];
-            answers = dialogue[discCount];
-            qID = "#ch"+discCount+"q";
-            aID = "#ch"+discCount+"a";
-            paID = "#ch"+(discCount-1)+"a";
 
+        function createDiscourse() {
             // Answer text
             for(i = 0; i<(answers.length-1); i++) {
-                answerText = answerText+'<div class="questionChoice" id="'+aID+'choice'+i+'">'+answers[i+1]+'</div>';
+                answerText = answerText+'<div class="questionChoice" id="'+aID+'choice'+i+'">'+answers[i+1]+'</div>&nbsp;';
             }
 
             // Appends new discourse session
-            $('#discourse').append('<div id="'+qID+'" class="chatBot"></div><div id="'+aID+'" class="humanPerson">'+answerText+'</div>');
-            runDiscourse();
+            $('#discourse').append('<div id="'+sqID+'" class="chatBot"></div>')
+            $('#discourse').append('<div id="'+saID+'" class="humanPerson">'+answerText+'</div>');
+            beginDiscourse();
         }
 
-        function runDiscourse() {
+        function beginDiscourse() {
             // Creates new bot-typing section
             $( qID ).teletype({
                 text: [ question ],
@@ -49,6 +52,7 @@
                 preserve: true,
                 callbackFinished: function( teletype ) {
                     teletype.setCursor('');
+                    $( aID ).toggle('normal');
                 }
             });
             discCount++;
@@ -101,7 +105,7 @@
                             preserve: true,
                             callbackFinished: function( teletype ) {
                                 teletype.setCursor('');
-                                createDiscourse(dialogue);
+                                createDiscourse();
                             }
                         });
                     }, 1000);
@@ -227,6 +231,7 @@
     </div>
     <img src="media/drake.png" id="steazy" class="steazy" />
         <img src="media/drake.png" id="steazy2" class="steazy2" />
+    <script>beginDiscourse();</script>
 </body>
 
 </html>
