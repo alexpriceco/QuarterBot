@@ -103,6 +103,7 @@ input:focus {
 }
 .questionChoice {
     padding:.4em;
+    margin: .3em auto;
     border-radius:2px;
     color:#1c1e21;
     text-decoration: none;

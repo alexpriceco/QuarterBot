@@ -9,7 +9,8 @@
     <link rel="stylesheet" type="text/css" href="css/animate.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="js/jquery.js"></script>
-    <script type="text/javascript" src="js/animate.js" ></script>
+    <script type="text/javascript" src="js/primary.js" ></script>
+    <script type="text/javascript" src="js/secondary.js" ></script>
     <script type="text/javascript" src="js/emoji.js" ></script>
     <script type="text/javascript" src="js/smooth-scroll.min.js" ></script>
     <script type="text/javascript">smoothScroll.init();</script>
@@ -19,7 +20,7 @@
         // Creates conversational structure: a question, followed by an answer
         // Types it out, based on a 2d array call "dialogue"
         var discCount = 1; var answerText = "";
-        var dialogue = [[""], ["What's your major?", "CS", "Psychology"]];
+        var dialogue = [[""], ["What's your major?", "CS", "Psychology", "TIM", "CE", "BioEngineering", "Literature"]];
         var question1 = dialogue[[discCount][0]];
         var question = question1[0];
         var answers = dialogue[discCount];
@@ -39,6 +40,7 @@
             // Appends new discourse session
             $('#discourse').append('<div id="'+sqID+'" class="chatBot"></div>')
             $('#discourse').append('<div id="'+saID+'" class="humanPerson">'+answerText+'</div>');
+            discCount++;
             beginDiscourse();
         }
 
@@ -57,17 +59,17 @@
             });
             $('.questionChoice').click(function(event) {
                 document.getElementById( event.target.id ).classList.add("selectedAns");
-                $("div").siblings( event.target.id ).addClass("unselected");
-                $.ajax({
+                primary();
+                createDiscourse();
+                /*$.ajax({
                     type: "POST",
                     url: "php/primary.php",
-                    data: name+"="+name,
+                    data: "response="+((String(event.target.id)).substring(13, 14)),
                     success: function(data) {
                         alert(data);
                     }
-                })
+                })*/
             });
-            discCount++;
         }
 
         // Konami code easter egg, displays the 6 god twice
