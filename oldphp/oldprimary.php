@@ -45,6 +45,7 @@ function getPath($major, $reqsFulfilled){
 			}
 		}
 	return $path;
+  }
 }
 array getCourses($major){
  switch ($major):

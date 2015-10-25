@@ -43,7 +43,7 @@ $courses = getCourses($major);
 
 mySort($courses);
 
-$courses2 = array();
+$courses2 = array(array());
 
 //for each element in courses, it makes a new array in courses2, and fills it with one element from courses
 //makes a 2D array
@@ -209,15 +209,15 @@ function apCred($APcourses, $array){
 }
 //$array[quarter][slot][class]
 function quarterify($array){ //courses2 is sorted and similarified
-  $r = array();
-  $count=0;
+  $r = array(array(array()));
   $c=0;
   for ($x=0; $x<12; $x++){
-    while ($count<13){
-      if(($count+$array[$x][0]->courseCredits)<=12){
+    $credits=0;
+    while ($credits<13){
+      if(($credits+$array[$x][0]->courseCredits)<=12){
         array_push($r[$x][$c], $array[$x]);
         $c++;
-        $count+=$array[$x][0]->courseCredits;
+        $credits+=$array[$x][0]->courseCredits;
       }
     }
   }
