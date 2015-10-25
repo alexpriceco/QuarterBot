@@ -86,6 +86,7 @@ input:focus {
 .humanPerson {
     float:right;
     max-width:50%;
+    display:none;
 }
 .slantySVG {
     width: 0;

@@ -16,14 +16,51 @@
     <script src="js/jquery.teletype.js"></script>
     <script src="js/cheet.min.js"></script>
     <script>
+        // Creates conversational structure: a question, followed by an answer
+        // Types it out, based on a 2d array call "dialogue"
+        var discCount = 1; var answerText = "";
+        var dialogue = [[""], ["Jumping right in, what's your major?", "CS", "Psychology"]];
+
+        function createDiscourse(questions_answers) {
+            question1 = dialogue[[discCount][0]];
+            question = question1[0];
+            answers = dialogue[discCount];
+            qID = "#ch"+discCount+"q";
+            aID = "#ch"+discCount+"a";
+            paID = "#ch"+(discCount-1)+"a";
+
+            // Answer text
+            for(i = 0; i<(answers.length-1); i++) {
+                answerText = answerText+'<div class="questionChoice" id="'+aID+'choice'+i+'">'+answers[i+1]+'</div>';
+            }
+
+            // Appends new discourse session
+            $('#discourse').append('<div id="'+qID+'" class="chatBot"></div><div id="'+aID+'" class="humanPerson">'+answerText+'</div>');
+            runDiscourse();
+        }
+
+        function runDiscourse() {
+            // Creates new bot-typing section
+            $( qID ).teletype({
+                text: [ question ],
+                typeDelay: 0,
+                delay: 800,
+                loop: 1,
+                preserve: true,
+                callbackFinished: function( teletype ) {
+                    teletype.setCursor('');
+                }
+            });
+            discCount++;
+        }
+
         // Konami code easter egg, displays the 6 god twice
         $(document).ready(function(){
             cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
                 $(".steazy").toggle(function() {
                     $('.steazy').show(700);
                     $( ".steazy" ).animate({
-                        right: -80
-                    }, {
+                        right: -80 }, {
                         duration: 1000,
                         step: function( now, fx ){
                             $( ".steazy" ).css( "right", now );
@@ -33,8 +70,7 @@
                 $(".steazy2").toggle(function() {
                     $('.steazy2').show(700);
                     $( ".steazy2" ).animate({
-                        left: -80
-                    }, {
+                        left: -80 }, {
                         duration: 1000,
                         step: function( now, fx ){
                             $( ".steazy2" ).css( "left", now );
@@ -46,26 +82,26 @@
 
         // Bot code, starts typing initial text
         $(function chapter1(){
-            $('#ch1').teletype({
-                text: [ 'Hey there! I\'ll be your personal assistant today!^200 ' ],
+            $('#ch0q').teletype({
+                text: [ 'Hey there! ' ],
                 typeDelay: 0,
                 delay: 800,
                 loop: 1,
                 preserve: true,
                 callbackFinished: function( teletype ) {
                     teletype.setCursor('');
-                    $('#ch1').append('&#128522;'); // Appends smily emoji!
+                    $('#ch0q').append('&#128522;'); // Appends smily emoji!
                     setTimeout(function(){ // Adds some buffer time between emoji and next line
                         // Reqd. to allow for emoji, teletype + twemoji don't play well
-                        $('#ch1_1').teletype({
-                            text: [ 'To start, what\'s your major?^1000' ],
+                        $('#ch0_1q').teletype({
+                            text: [ 'I\'ll be your personal assistant today!^200' ],
                             typeDelay: 0,
                             delay: 800,
                             loop: 1,
                             preserve: true,
                             callbackFinished: function( teletype ) {
                                 teletype.setCursor('');
-                                $( '#hp1' ).slideToggle('normal');
+                                createDiscourse(dialogue);
                             }
                         });
                     }, 1000);
@@ -73,58 +109,22 @@
             });
         });
 
-        // Gets major, submits form
+        // Builds question/answer structs
+        /*
         $(document).ready(function(){
-            var choice1 = document.querySelector("#hpQ1Choice1");
-            var choice2 = document.querySelector("#hpQ1Choice2");
-            var choice3 = document.querySelector("#hpQ1Choice3");
-            $('#hpQ1Choice1').click(function() {
-                choice1.classList.add("selectedAns");
-                choice2.classList.add("unselected");
-                choice3.classList.add("unselected");
-                chapter2(1);
-                document.getElementById("major").value = "cs";
+            $('#').click(function() {
                 $.ajax({
                     type: "POST",
                     url: "php/primary.php",
-                    data: "major="+document.getElementById("major").value,
+                    data: "major=cs",
                     success: function(data) {
-                        var questions2 = data.split(" ");
-                        alert(questions2[0]+" "+questions2[1]+" "+questions2[2])
-                    }
-                })
-            });
-            $('#hpQ1Choice2').click(function() {
-                choice2.classList.add("selectedAns");
-                choice1.classList.add("unselected");
-                choice3.classList.add("unselected");
-                chapter2(2);
-                document.getElementById("major").value = "psych";
-                $.ajax({
-                    type: "GET",
-                    url: "php/primary.php",
-                    data: "query="+document.getElementById("major").value,
-                    success: function(data) {
-                        alert(data);
+                        var questions2 = (data.substring(2)).split(" ");
+                        var numQuestions = questions2.length/3;
                     }
                 })
             });
         });
-
-        // Receives prerequisites, offers questions
-        function chapter2(major) {
-            $('#ch2').teletype({
-                text: [ 'Great choice! Gimme just a second...^1000 ' ],
-                typeDelay: 0,
-                delay: 800,
-                loop: 1,
-                preserve: true,
-                callbackFinished: function( teletype ) {
-                    teletype.setCursor('');
-
-                }
-            });
-        }
+        */
     </script>
 </head>
 
@@ -154,23 +154,11 @@
         </div>
 
         <div class="whitePaper">
-            <!-- THROW THE RESULTS RIGHT HERE -->
-            <form method="post" name="mainForm" action="php/primary.php" id="mainForm">
-                <div id="ch1" class="chatBot"></div>
-                <div id="ch1_1" class="chatBot"></div>
-                <div id="hp1" class="humanPerson" style="display:none">
-                    <div data-scroll href="#report" class="questionChoice" id="hpQ1Choice1">CS</div>
-                    <div data-scroll href="#report" class="questionChoice" id="hpQ1Choice2">Psych</div>
-                    <div href="#" class="questionChoice disabledChoice" id="hpQ1Choice3">More soon!</div>
-                </div>
-                <input type="hidden" id="major" name="major">
-                <br><br><div id="ch2" class="chatBot"></div>
-            </form>
+                <div id="ch0q" class="chatBot"></div>
+                <div id="ch0_1q" class="chatBot"></div>
+                <div id="discourse"></div>
 
-
-
-                <br><br>
-            <div class="report" id="report">
+            <div class="report hidden" id="report">
                 <div class="quarter">
                     <span class="quarterLabel">FALL</span>
                     <span>$classname</span>
@@ -238,7 +226,7 @@
         </div>
     </div>
     <img src="media/drake.png" id="steazy" class="steazy" />
-    <img src="media/drake.png" id="steazy2" class="steazy2" />
+        <img src="media/drake.png" id="steazy2" class="steazy2" />
 </body>
 
 </html>

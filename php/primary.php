@@ -4,7 +4,7 @@
 $major = $_POST['major'];
 
 // Local
-$cs =  array("APCS 0 5", "APCALCAB 0 5", "APCALCBC 0 5", "SCIENCEFOCUS chem phys");
+$cs =  array("APCS 0 5", "APCALCAB 0 5", "APCALCBC 0 5", "SCIENCEFOCUS chemistry physics");
 $psych =  array("APPSYCH 0 5");
 
 // Switch case used for scalability in the future
