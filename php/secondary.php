@@ -167,11 +167,19 @@ function apCred($s, $array){
 
   }
 }
-
+//$array[quarter][slot][class]
 function quarterify($array){ //courses2 is sorted and similarified
-  $r = array(array());
-  for($o=0; $o<count($array); $o++){
-    array_push($r)
+  $r = array();
+  $count=0;
+  $c=0;
+  for ($x=0; $x<12; x++){
+    while ($count<13){
+      if(($count+$array[$x][0]->courseCredits)<=12){
+        array_push($r[$x][$c], $array[$x]);
+        $c++;
+        $count+=$array[$x][0]->courseCredits;
+      }
+    }
   }
   return $r;
 }
