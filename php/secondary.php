@@ -9,7 +9,7 @@
 
 $major = $_POST['major']; // Accepts major string val
 $scores = $_POST['apscores'];
-$apScores;
+$apScores=array();
 
 // Assume the scores are "APCS 3 ASFD 4 AFDFS 7 AFDSFSDS content asdfasdf"
 // Parse the string apScores to isolate the text from the spaces
@@ -28,7 +28,7 @@ class Course {
   var $courseCore;
 
   public function __construct($courseDesc, $courseCredits, $courseBarToEntry, $courseCore){
-    $this->desc=$desc;
+    $this->courseDesc=$courseDesc;
     $this->courseCredits=$courseCredits;
     $this->courseBarToEntry=$courseBarToEntry;
     $this->courseCore=$courseCore;
@@ -48,7 +48,7 @@ $courses2 = array();
 //for each element in courses, it makes a new array in courses2, and fills it with one element from courses
 //makes a 2D array
 for ($x=0; $x<count($courses); $x++){
-  array_push($courses2, null);
+  array_push($courses2, array());
   array_push($courses2[$x], $courses[$x]);
 }
 
@@ -60,6 +60,13 @@ for ($q=0; $q<count($apScores); $q+=2){
     if ($apScores[$q]==$r->courseDesc){
       $r->score=$apScores[$q+1];
     }
+  }
+}
+
+for ($t=0; $t<$apCourses; $t++){
+  if ($apCourses[$t]->score=="1" || $apCourses[$t]->score=="2" || $apCourses[$t]->score=="0"){
+    unset($apCourses[$t]);
+    $t--;
   }
 }
 
