@@ -5,16 +5,16 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <link rel="stylesheet" type="text/css" href="animate.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-    <script src="jquery.js"></script>
-    <script type="text/javascript" src="animate.js" ></script>
-    <script type="text/javascript" src="emoji.js" ></script>
-    <script type="text/javascript" src="smooth-scroll.min.js" ></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/animate.js" ></script>
+    <script type="text/javascript" src="js/emoji.js" ></script>
+    <script type="text/javascript" src="js/smooth-scroll.min.js" ></script>
     <script type="text/javascript">smoothScroll.init();</script>
-    <script src="jquery.teletype.js"></script>
-    <script src="cheet.min.js"></script>
+    <script src="js/jquery.teletype.js"></script>
+    <script src="js/cheet.min.js"></script>
     <script>
         // Konami code easter egg, displays the 6 god twice
         $(document).ready(function(){
@@ -77,12 +77,16 @@
             var choice3 = document.querySelector("#hpQ1Choice3")
             $('#hpQ1Choice1').click(function() {
                 choice1.classList.add("selectedAns");
+                choice2.classList.add("unselected");
+                choice3.classList.add("unselected");
                 chapter2(1);
                 document.getElementById("major").value = "cs";
                 document.getElementById("mainForm").submit();
             });
             $('#hpQ1Choice2').click(function() {
                 choice2.classList.add("selectedAns");
+                choice1.classList.add("unselected");
+                choice3.classList.add("unselected");
                 chapter2(2);
                 document.getElementById("major").value = "psych";
                 document.getElementById("mainForm").submit();
@@ -92,17 +96,14 @@
         // Receives prerequisites, offers questions
         function chapter2(major) {
             $('#ch2').teletype({
-                text: [ 'Great choice! Gimme just a second...^1000 ',
-            '\nGreat, all done! Here\'s what we\'ve got!' ],
+                text: [ 'Great choice! Gimme just a second...^1000 ' ],
                 typeDelay: 0,
                 delay: 800,
                 loop: 1,
                 preserve: true,
                 callbackFinished: function( teletype ) {
                     teletype.setCursor('');
-                    $( '.report' ).slideToggle('normal');
-                    smoothScroll.animateScroll( null, '#report' );
-                    $( '.report' ).style.padding = "3em";
+
                 }
             });
         }
@@ -218,8 +219,8 @@
             </div>
         </div>
     </div>
-    <img src="drake.png" id="steazy" class="steazy" />
-    <img src="drake.png" id="steazy2" class="steazy2" />
+    <img src="media/drake.png" id="steazy" class="steazy" />
+    <img src="media/drake.png" id="steazy2" class="steazy2" />
 </body>
 
 </html>
