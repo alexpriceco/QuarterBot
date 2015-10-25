@@ -17,29 +17,6 @@
     <script src="js/jquery.teletype.js"></script>
     <script src="js/cheet.min.js"></script>
     <script>
-        // Creates conversational structure: a question, followed by an answer
-        // Types it out, based on a 2d array call "dialogue"
-        var discCount = 1; var answerText = ""; console.log("at start" + discCount);
-        var dialogue = [[""],
-                        ["What's your major?", "CS", "Psychology", "TIM", "CE", "BioEngineering", "Literature"],
-                        ["What\'d you get on the AP CS test?", "Didn't take it.", "1", "2", "3", "4", "5"],
-                        ["What\'d you get on the AP Calc AB test?", "Didn't take it.", "1", "2", "3", "4", "5"],
-                        ["What\'d you get on the AP Calc BC test?", "Didn't take it.", "1", "2", "3", "4", "5"],
-                        ["Do you prefer chemistry, or physics?", "Chemistry.", "Physics!"]];
-/*
-            $( qID ).teletype({
-                text: [ question ],
-                typeDelay: 0,
-                delay: 800,
-                loop: 1,
-                preserve: true,
-                callbackFinished: function( teletype ) {
-                    teletype.setCursor('');
-                    $( aID ).toggle('normal');
-                }
-            });
-            */
-
         // Konami code easter egg, displays the 6 god twice
         $(document).ready(function(){
             cheet('↑ ↑ ↓ ↓ ← → ← → b a', function () {
@@ -87,87 +64,102 @@
                             preserve: true,
                             callbackFinished: function( teletype ) {
                                 teletype.setCursor('');
-                                $(event.target.id).click(function() {
-                                    $(this).addClass("selected");
-                                }
-                                $( '#ch1q' ).teletype({
-                                    text: [ 'What major will you declare?' ],
-                                    typeDelay: 0,
-                                    delay: 800,
-                                    loop: 1,
-                                    preserve: true,
-                                    callbackFinished: function( teletype ) {
-                                        teletype.setCursor('');
-                                        $( '#ch1a' ).toggle('normal');
-                                        $(event.target.id).click(function() {
-                                            $(this).addClass("selected");
-                                        }
-                                        $( '#ch2q' ).teletype({
-                                            text: [ 'Awesome choice! What did you get on the APCS test?' ],
-                                            typeDelay: 0,
-                                            delay: 800,
-                                            loop: 1,
-                                            preserve: true,
-                                            callbackFinished: function( teletype ) {
-                                                teletype.setCursor('');
-                                                $( '#ch2a' ).toggle('normal');
-                                                $(event.target.id).click(function() {
-                                                    $(this).addClass("selected");
-                                                }
-                                                $( '#ch3q' ).teletype({
-                                                    text: [ 'What did you get on the AP Calc AB test?' ],
-                                                    typeDelay: 0,
-                                                    delay: 800,
-                                                    loop: 1,
-                                                    preserve: true,
-                                                    callbackFinished: function( teletype ) {
-                                                        teletype.setCursor('');
-                                                        $( '#ch3a' ).toggle('normal');
-                                                        $(event.target.id).click(function() {
-                                                            $(this).addClass("selected");
-                                                        }
-                                                        $( '#ch4q' ).teletype({
-                                                            text: [ 'What did you get on the AP Calc BC test?' ],
-                                                            typeDelay: 0,
-                                                            delay: 800,
-                                                            loop: 1,
-                                                            preserve: true,
-                                                            callbackFinished: function( teletype ) {
-                                                                teletype.setCursor('');
-                                                                $( '#ch4a' ).toggle('normal');
-                                                                $(event.target.id).click(function() {
-                                                                    $(this).addClass("selected");
-                                                                }
-                                                                $( '#ch5q' ).teletype({
-                                                                    text: [ 'Do you prefer physics, or chemistry?' ],
-                                                                    typeDelay: 0,
-                                                                    delay: 800,
-                                                                    loop: 1,
-                                                                    preserve: true,
-                                                                    callbackFinished: function( teletype ) {
-                                                                        teletype.setCursor('');
-                                                                        $( '#ch5a' ).toggle('normal');
-                                                                        $(event.target.id).click(function() {
-                                                                            $(this).addClass("selected");
-                                                                        }
-                                                                            display schedule
-                                                                    }
-                                                                });
-                                                            }
-                                                        });
-                                                    }
-                                                });
-                                            }
-                                        });
-                                    }
-                                });
+                                chapter2();
+
                             }
                         });
                     }, 1000);
                 }
             });
+            function chapter2() {
+            $( '#ch1q' ).teletype({
+                text: [ 'What major will you declare?' ],
+                typeDelay: 0,
+                delay: 800,
+                loop: 1,
+                preserve: true,
+                callbackFinished: function( teletype ) {
+                    teletype.setCursor('');
+                    $( '#ch1a' ).toggle('normal');
+                    $('body').on('click', function(e){
+                                        $(e.target.id).addClass("selected");
+                                        chapter3();
+                                    });
 
+                }
+            });
+            }
+            function chapter3() {
+            $( '#ch2q' ).teletype({
+                text: [ 'Awesome choice! What did you get on the APCS test?' ],
+                typeDelay: 0,
+                delay: 800,
+                loop: 1,
+                preserve: true,
+                callbackFinished: function( teletype ) {
+                    teletype.setCursor('');
+                    $( '#ch2a' ).toggle('normal');
+                    $('body').on('click', function(e){
+                                        $(e.target.id).addClass("selected");
+                                        chapter4();
+                                    });
 
+                }
+            });
+            }
+            function chapter4() {
+            $( '#ch3q' ).teletype({
+                text: [ 'What did you get on the AP Calc AB test?' ],
+                typeDelay: 0,
+                delay: 800,
+                loop: 1,
+                preserve: true,
+                callbackFinished: function( teletype ) {
+                    teletype.setCursor('');
+                    $( '#ch3a' ).toggle('normal');
+                    $('body').on('click', function(e){
+                                        $(e.target.id).addClass("selected");
+                                        chapter5();
+                                    });
+
+                }
+            });
+            }
+            function chapter5() {
+            $( '#ch4q' ).teletype({
+                text: [ 'What did you get on the AP Calc BC test?' ],
+                typeDelay: 0,
+                delay: 800,
+                loop: 1,
+                preserve: true,
+                callbackFinished: function( teletype ) {
+                    teletype.setCursor('');
+                    $( '#ch4a' ).toggle('normal');
+                    $('body').on('click', function(e){
+                                        $(e.target.id).addClass("selected");
+                                        chapter6();
+                                    });
+
+                }
+            });
+            }
+            function chapter6() {
+            $( '#ch5q' ).teletype({
+                text: [ 'Do you prefer physics, or chemistry?' ],
+                typeDelay: 0,
+                delay: 800,
+                loop: 1,
+                preserve: true,
+                callbackFinished: function( teletype ) {
+                    teletype.setCursor('');
+                    $( '#ch5a' ).toggle('normal');
+                    $('body').on('click', function(e){
+                                        $(e.target.id).addClass("selected");
+                                        $('#report').removeClass('hidden');
+                                    });
+                }
+            });
+            }
 
         });
     </script>
@@ -201,51 +193,57 @@
         <div class="whitePaper">
                 <div id="ch0q" class="chatBot"></div>
                 <div id="ch0_1q" class="chatBot"></div>
+                <br><br><br><br>
 
                 <div id="ch1q" class="chatBot"></div>
                 <div id="ch1a" class="humanPerson">
-                    <div id="questionChoice">CS</div>
-                    <div id="questionChoice">CE</div>
-                    <div id="questionChoice">EE</div>
-                    <div id="questionChoice">Literature</div>
-                    <div id="questionChoice">BioEngineering</div>
+                    <div class="questionChoice">CS</div>
+                    <div class="questionChoice">CE</div>
+                    <div class="questionChoice">EE</div>
+                    <div class="questionChoice">Literature</div>
+                    <div class="questionChoice">BioEngineering</div>
                 </div>
+                <br><br><br><br>
 
                 <div id="ch2q" class="chatBot"></div>
                 <div id="ch2a" class="humanPerson">
-                    <div id="questionChoice">Not my thing.</div>
-                    <div id="questionChoice">1</div>
-                    <div id="questionChoice">2</div>
-                    <div id="questionChoice">3</div>
-                    <div id="questionChoice">4</div>
-                    <div id="questionChoice">5</div>
+                    <div class="questionChoice">Not my thing.</div>
+                    <div class="questionChoice">1</div>
+                    <div class="questionChoice">2</div>
+                    <div class="questionChoice">3</div>
+                    <div class="questionChoice">4</div>
+                    <div class="questionChoice">5</div>
                 </div>
+                <br><br><br><br>
 
                 <div id="ch3q" class="chatBot"></div>
                 <div id="ch3a" class="humanPerson">
-                    <div id="questionChoice">Declined to take it.</div>
-                    <div id="questionChoice">1</div>
-                    <div id="questionChoice">2</div>
-                    <div id="questionChoice">3</div>
-                    <div id="questionChoice">4</div>
-                    <div id="questionChoice">5</div>
+                    <div class="questionChoice">Declined to take it.</div>
+                    <div class="questionChoice">1</div>
+                    <div class="questionChoice">2</div>
+                    <div class="questionChoice">3</div>
+                    <div class="questionChoice">4</div>
+                    <div class="questionChoice">5</div>
                 </div>
+                <br><br><br><br>
 
                 <div id="ch4q" class="chatBot"></div>
                 <div id="ch4a" class="humanPerson">
-                    <div id="questionChoice">Didn't take it.</div>
-                    <div id="questionChoice">1</div>
-                    <div id="questionChoice">2</div>
-                    <div id="questionChoice">3</div>
-                    <div id="questionChoice">4</div>
-                    <div id="questionChoice">5</div>
+                    <div class="questionChoice">Didn't take it.</div>
+                    <div class="questionChoice">1</div>
+                    <div class="questionChoice">2</div>
+                    <div class="questionChoice">3</div>
+                    <div class="questionChoice">4</div>
+                    <div class="questionChoice">5</div>
                 </div>
+                <br><br><br><br>
 
                 <div id="ch5q" class="chatBot"></div>
                 <div id="ch5a" class="humanPerson">
-                    <div id="questionChoice">Chemistry, all the way!</div>
-                    <div id="questionChoice">Hah, physics, easy.</div>
+                    <div class="questionChoice">Chemistry, all the way!</div>
+                    <div class="questionChoice">Hah, physics, easy.</div>
                 </div>
+                <br><br><br><br>
 
             <div class="report hidden" id="report">
                 <div class="quarter">
