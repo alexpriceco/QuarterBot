@@ -134,7 +134,7 @@ input:focus {
 }
 .quarterLabel {
     font-size:.9em;
-    color: #d1d1d2;
+    color: #aaa;
     text-transform: uppercase;
     display: block;
 }
@@ -153,4 +153,8 @@ input:focus {
     left:-99em;
     max-height: 333px;
     transform: scaleX(-1);
+}
+.credits {
+    color:#aaa;
+    font-style: italic;
 }
